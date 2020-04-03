@@ -48,6 +48,7 @@ woRkout_1 <- generate_workout(workouts, 5, 10)
 woRkout_1 # view workout
 #
 # Run workout
+## INTERVAL = in seconds
 run_workout <- function(df, INTERVAL){
   countdown <- function(from)
   {
@@ -67,7 +68,7 @@ run_workout <- function(df, INTERVAL){
   warmup_list <- warmup_final$WORKOUT
   for (row in warmup_list) {
     cat("\n", "Next:",paste(row), "in ", "\n")
-    countdown(3)
+    countdown(9) #transition countdown
     beep(sound = 2)
     cat("\n",paste(row), "\n")
     countdown(30) # warm-up defaults to 30 seconds
@@ -76,12 +77,12 @@ run_workout <- function(df, INTERVAL){
   cat("\n","\n","\n","Hope you're warm now", "\n")
   beep(sound = 2)
   cat("Workout in...", "\n")
-  countdown(5)
+  countdown(15)
   wo_final <- subset(df, Type == "main")
   wo_list <- wo_final$WORKOUT
   for (row in wo_list) {
     cat("\n", "Next:", paste(row), "in ", "\n")
-    countdown(3)
+    countdown(9) #transition countdown
     beep(sound = 2)
     cat("\n", "\n","GO!", "\n", "\n", paste(row), "\n")
     countdown(INTERVAL)
@@ -131,16 +132,18 @@ run_tabata_workout <- function(df){
     cat("\n", "\n","GO!", "\n", "\n", paste(row), "\n")
     countdown(20)
     beep(sound = 5)
-    cat("\n", "\n", "Rest. 10 seconds")
+    cat("\n", "\n", "Rest. 10 seconds", "\n", "\n")
+    cat("Next up:", paste(row))
     countdown(10)
   }
   cat("\n", "\n", "Half way there! Round two.", "\n")
   for (row in tabata_list) {
     beep(sound = 2)
-    cat("GO!", "\n", "\n", paste(row), "\n")
+    cat("\n", "\n","GO!", "\n", "\n", paste(row), "\n")
     countdown(20)
     beep(sound = 5)
-    cat("\n", "\n", "Rest. 10 seconds")
+    cat("\n", "\n", "Rest. 10 seconds", "\n", "\n")
+    cat("Next up:", paste(row))
     countdown(10)
   }
   beep(sound = 8) #Complete Mario sound
@@ -148,7 +151,8 @@ run_tabata_workout <- function(df){
 }
 #
 # Run tabata workout, 4 moves for 20 seconds with 10 second rests, x2
+tabata_1
 run_tabata_workout(tabata_1)
 #
-# Go drink some water.
+# Go drink some water. You rocked it.
 # SKH
