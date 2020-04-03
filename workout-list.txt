@@ -29,3 +29,8 @@ knee to elbow	main	both
 lunge twists	warm-up	both
 froggers	main	both
 plank jacks	main	both
+jog in place	warm-up	both
+jumping jacks	warm-up	both
+jog in place	warm-up	both
+jumping jacks	warm-up	both
+crunch leg lifts	main	both
