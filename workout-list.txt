@@ -1,0 +1,31 @@
+Workout	Type	Sides
+jumping jacks	warm-up	both
+high knees	warm-up	both
+butt kickers	warm-up	both
+sit-ups	main	both
+lunges	main	sided
+walking lunges	warm-up	both
+arm circles	warm-up	both
+step-up / box jump	main	both
+squats	main	both
+toe touches	warm-up	both
+chair pose hold	main	both
+plank	main	both
+side plank	main	sided
+wide squats	main	both
+burpees	main	both
+crunches	main	both
+bridge	main	both
+leg lift V-ups	main	both
+push-ups	main	both
+mountain climbers	main	both
+pike planks	main	both
+wide squats	warm-up	both
+bridge hold	main	both
+tricep dips	main	both
+bicycle crunches	main	both
+walk outs	main	both
+knee to elbow	main	both
+lunge twists	warm-up	both
+froggers	main	both
+plank jacks	main	both
