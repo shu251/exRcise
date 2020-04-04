@@ -9,13 +9,14 @@ library(dplyr);library(beepr)
 #
 # Import list of workouts
 workouts <- read.delim("workout-list.txt")
+#
 ## Input table requires columns: c("Workout","Type","Sides")
 # where Workout = name of workout
 # Type = specify if "warm-up" or "main" workout move
 # Sides = specify if move requires left and right sides ("sided") or not ("both")
 #
 # Generate workout
-## df = input workout data table, REPS = total number of workouts you want to randomly subset. Warm-ups default to 6.
+## df = input workout data table, REPS = total number of workouts you want to randomly select
 #
 generate_workout <- function(df, warmupREPS, workoutREPS){
   warmup <- subset(df, Type == "warm-up")
@@ -94,8 +95,7 @@ run_workout <- function(df, INTERVAL){
 #
 # Run workout so main workout moves run for 25 seconds each
 run_workout(woRkout_1, 25)
-## Workout defaults to 30 sec intervals for warm-ups with 3 second transition and main workout includes 3 second transitions in between specified intervals (INTERVAL)
-#
+## Workout defaults to 30 sec intervals for warm-ups with 10 second transition and main workout includes 10 second transitions in between specified intervals (INTERVAL)
 #
 ###
 # Generate & run a tabata workout:
@@ -125,29 +125,28 @@ run_tabata_workout <- function(df){
   #
   beep(sound = 2)
   cat("\n","\n","Tabata time", " in.....", "\n")
-  countdown(7)
   tabata_list <- df$Workout
   for (row in tabata_list) {
+    cat("\n", "\n", "10 second transition", "\n", "\n")
+    cat("Next up:", paste(row))
+    countdown(10)
     beep(sound = 2)
     cat("\n", "\n","GO!", "\n", "\n", paste(row), "\n")
     countdown(20)
     beep(sound = 5)
-    cat("\n", "\n", "Rest. 10 seconds", "\n", "\n")
-    cat("Next up:", paste(row))
-    countdown(10)
   }
   cat("\n", "\n", "Half way there! Round two.", "\n")
   for (row in tabata_list) {
+    cat("\n", "\n", "10 second transition", "\n", "\n")
+    cat("Next up:", paste(row))
+    countdown(10)
     beep(sound = 2)
     cat("\n", "\n","GO!", "\n", "\n", paste(row), "\n")
     countdown(20)
     beep(sound = 5)
-    cat("\n", "\n", "Rest. 10 seconds", "\n", "\n")
-    cat("Next up:", paste(row))
-    countdown(10)
   }
   beep(sound = 8) #Complete Mario sound
-  cat("WORKOUT COMPLETED!!!", "\n", "\n","go drink some water")
+  cat("WORKOUT COMPLETE!!!", "\n", "\n","go drink some water")
 }
 #
 # Run tabata workout, 4 moves for 20 seconds with 10 second rests, x2
