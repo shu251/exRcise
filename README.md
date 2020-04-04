@@ -20,7 +20,8 @@ Launch and run in R (RStudio is best). Provided ```workout-list.txt``` comes wit
 :trophy:  
 
 ![](Rstudio-workout.gif)
-
+![](Animated GIF-downsized_large.gif)
+![](Animated GIF-downsized.gif)
 
 
 Last updated: _Sarah Hu April 4, 2020_
