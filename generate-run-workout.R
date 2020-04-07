@@ -9,6 +9,7 @@ library(dplyr);library(beepr)
 #
 # Import list of workouts
 workouts <- read.delim("workout-list.txt")
+summary(workouts)
 #
 ## Input table requires columns: c("Workout","Type","Sides")
 # where Workout = name of workout
@@ -45,7 +46,7 @@ generate_workout <- function(df, warmupREPS, workoutREPS){
 }
 #
 # Example workout, selecting 5 warm-ups and 10 main workouts
-woRkout_1 <- generate_workout(workouts, 5, 10)
+woRkout_1 <- generate_workout(workouts, 1, 26)
 woRkout_1 # view workout
 #
 # Run workout
@@ -78,7 +79,7 @@ run_workout <- function(df, INTERVAL){
   cat("\n","\n","\n","Hope you're warm now", "\n")
   beep(sound = 2)
   cat("Workout in...", "\n")
-  countdown(15)
+  countdown(3)
   wo_final <- subset(df, Type == "main")
   wo_list <- wo_final$WORKOUT
   for (row in wo_list) {
@@ -94,7 +95,7 @@ run_workout <- function(df, INTERVAL){
 }
 #
 # Run workout so main workout moves run for 25 seconds each
-run_workout(woRkout_1, 25)
+run_workout(woRkout_1, 20)
 ## Workout defaults to 30 sec intervals for warm-ups with 10 second transition and main workout includes 10 second transitions in between specified intervals (INTERVAL)
 #
 ###
