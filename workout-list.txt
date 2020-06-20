@@ -8,7 +8,7 @@ walking lunges	warm-up	both
 arm circles	warm-up	both
 "step-up / box jump (use stair, a chair, or couch)"	main	both
 squats	main	both
-leg lift - toe touches (alternate legs)	warm-up	both
+toe touches (alternate legs)	warm-up	both
 chair pose hold	main	both
 plank hold	main	both
 side plank	main	sided
@@ -40,6 +40,9 @@ rear leg lift (alternate sides)	warm-up	both
 jump squats	warm-up	both
 scissor kicks - on back	main	both
 penguins	main	both
-start jumps	main	both
+star jumps	main	both
 V-ups	main	both
 reverse lunges	main	both
+fire hydrants	main	both
+fire hydrants	warm-up	both
+single-leg squats	main	sided
