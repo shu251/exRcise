@@ -1,24 +1,25 @@
 ###
 # Generate & run a workout in R!
 ### randomly create an interval-based warm-up & workout routine
-### SHu - 02-04-2020
+### SHu - 19-06-2020
 #
 # install.packages("dplyr")
 # install.packages("beepr")
 library(dplyr);library(beepr)
 #
 # Import list of workouts
-workouts <- read.delim("workout-list.txt")
-summary(workouts)
-#
+workout_list <- read.delim("workout-list.txt")
+summary(workout_list)
+
 ## Input table requires columns: c("Workout","Type","Sides")
 # where Workout = name of workout
 # Type = specify if "warm-up" or "main" workout move
 # Sides = specify if move requires left and right sides ("sided") or not ("both")
-#
-# Generate workout
+
+
+# R workout functions -----------------------------------------------------
+# Functions to generate and run workouts - run all and then use below:
 ## df = input workout data table, REPS = total number of workouts you want to randomly select
-#
 generate_workout <- function(df, warmupREPS, workoutREPS){
   warmup <- subset(df, Type == "warm-up")
   warmup_subset <- warmup[sample(nrow(warmup), warmupREPS), ]
@@ -44,11 +45,7 @@ generate_workout <- function(df, warmupREPS, workoutREPS){
   compiled_ordered$WORKOUT <- paste(compiled_ordered$Workout, compiled_ordered$SIDE, sep=" ")
   return(compiled_ordered)
 }
-#
-# Example workout, selecting 5 warm-ups and 10 main workouts
-woRkout_1 <- generate_workout(workouts, 1, 26)
-woRkout_1 # view workout
-#
+
 # Run workout
 ## INTERVAL = in seconds
 run_workout <- function(df, INTERVAL){
@@ -93,11 +90,7 @@ run_workout <- function(df, INTERVAL){
   beep(sound = 8) #Complete Mario sound
   cat("WORKOUT COMPLETED!!!", "\n", "\n","go drink some water")
 }
-#
-# Run workout so main workout moves run for 25 seconds each
-run_workout(woRkout_1, 20)
-## Workout defaults to 30 sec intervals for warm-ups with 10 second transition and main workout includes 10 second transitions in between specified intervals (INTERVAL)
-#
+
 ###
 # Generate & run a tabata workout:
 ###
@@ -107,10 +100,7 @@ generate_tabata_workout <- function(df){
   tabata <- work[sample(nrow(work), 4), ]
   return(tabata)
 }
-# Tabata workout will randomly select 4 main moves
-tabata_1 <- generate_tabata_workout(workouts)
-tabata_1
-#
+
 # Run tabata workout function:
 run_tabata_workout <- function(df){
   countdown <- function(from)
@@ -149,10 +139,27 @@ run_tabata_workout <- function(df){
   beep(sound = 8) #Complete Mario sound
   cat("WORKOUT COMPLETE!!!", "\n", "\n","go drink some water")
 }
+
+
+
+
+# Generate and run R workouts ---------------------------------------------
+# Example workout, selecting 5 warm-ups and 10 main workouts
+# woRkout_1 <- generate_workout(workouts, 4, 5)
+woRkout <- generate_workout(workout_list, 4, 5)
+woRkout # view workout
 #
+# Run workout so main workout moves run for 25 seconds each. Select your interval
+# run_workout(woRkout, 25)
+run_workout(woRkout, 40)
+## Workout defaults to 30 sec intervals for warm-ups with 10 second transition and main workout includes 10 second transitions in between specified intervals (INTERVAL)
+
+# Tabata workout will randomly select 4 main moves
+tabata <- generate_tabata_workout(workout_list)
+tabata
+
 # Run tabata workout, 4 moves for 20 seconds with 10 second rests, x2
-tabata_1
-run_tabata_workout(tabata_1)
-#
+run_tabata_workout(tabata)
+
 # Go drink some water. You rocked it.
 # SKH
