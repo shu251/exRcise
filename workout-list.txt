@@ -3,15 +3,15 @@ jumping jacks	warm-up	both
 high knees	warm-up	both
 butt kickers	warm-up	both
 sit-ups	main	both
-lunge with pulse	main	sided
+lunge with pulse	main	right,left
 walking lunges	warm-up	both
 arm circles	warm-up	both
-"step-up / box jump (use stair, a chair, or couch)"	main	both
+step-up / box jump (use stair, a chair, or couch)	main	both
 squats	main	both
 toe touches (alternate legs)	warm-up	both
 chair pose hold	main	both
 plank hold	main	both
-side plank	main	sided
+side plank	main	right,left
 squats with wide stance	main	both
 burpees	main	both
 crunches	main	both
@@ -21,7 +21,7 @@ push-ups	main	both
 mountain climbers	main	both
 pike planks (plank to downward dog)	main	both
 squats with wide stance	warm-up	both
-"tricep dips (use stair, a chair, or couch)"	main	both
+tricep dips (use stair, a chair, or couch)	main	both
 bicycle crunches	main	both
 walk outs (stand to plank and back)	main	both
 plank with knee to elbow (alternate legs)	main	both
@@ -36,7 +36,7 @@ lateral / side lunges (alternate sides)	warm-up	both
 squats with wide stance	warm-up	both
 leg lift - on your back lift both legs	main	both
 rear leg lift (alternate sides)	warm-up	both
-"kick backs - table pose, kick back alternate legs"	warm-up	both
+kick backs - table pose, kick back alternate legs	warm-up	both
 jump squats	warm-up	both
 scissor kicks - on back	main	both
 penguins	main	both
@@ -45,4 +45,4 @@ V-ups	main	both
 reverse lunges	main	both
 fire hydrants	main	both
 fire hydrants	warm-up	both
-single-leg squats	main	sided
+single-leg squats	main	right,left

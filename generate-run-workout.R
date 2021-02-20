@@ -1,54 +1,40 @@
+head(workout_list)
+library(tidyverse); library(beepr)
+
+workout_list <- read.delim(file = "../exRcise/workout-list.txt")
+
 ###
-# Generate & run a workout in R!
-### randomly create an interval-based warm-up & workout routine
-### SHu - 19-06-2020
-#
-# install.packages("dplyr")
-# install.packages("beepr")
-library(dplyr);library(beepr)
-#
-# Import list of workouts
-workout_list <- read.delim("workout-list.txt")
-summary(workout_list)
-
-## Input table requires columns: c("Workout","Type","Sides")
-# where Workout = name of workout
-# Type = specify if "warm-up" or "main" workout move
-# Sides = specify if move requires left and right sides ("sided") or not ("both")
-
-
-# R workout functions -----------------------------------------------------
-# Functions to generate and run workouts - run all and then use below:
-## df = input workout data table, REPS = total number of workouts you want to randomly select
-generate_workout <- function(df, warmupREPS, workoutREPS){
-  warmup <- subset(df, Type == "warm-up")
-  warmup_subset <- warmup[sample(nrow(warmup), warmupREPS), ]
-  work <- subset(df, Type == "main")
-  work_subset <- work[sample(nrow(work), workoutREPS), ]
-  # Combine & sort sided workout moves
-  compiled <- rbind(warmup_subset, work_subset)
-  compiled
-  compiled_left <- subset(compiled, Sides == "sided")
-  if (dim(compiled_left)[1] > 0) {
-    compiled$SIDE <- ""
-    compiled$SIDE[compiled$Sides == "sided"] = "RIGHT"
-    compiled_left$SIDE <- "LEFT" #Will produce error if there were no "sided" workouts randomly selected
-    compiled_sided <- rbind(compiled, compiled_left)
-  } else {
-    compiled$SIDE <- ""
-    compiled_sided <- compiled
-  }
-  compiled_ordered <- compiled_sided %>%
-      group_by(Type, Workout) %>%
-      arrange(desc(Type), Workout, desc(SIDE)) %>%
-      data.frame
-  compiled_ordered$WORKOUT <- paste(compiled_ordered$Workout, compiled_ordered$SIDE, sep=" ")
-  return(compiled_ordered)
+# Function to generate workout
+###
+generate_workout <- function(warmupREPS, workoutREPS){
+  # Select main workouts
+  main <- workout_list %>% 
+    filter(Type == "main") %>% 
+    sample_n(workoutREPS) %>% 
+    # Duplicate for sided workouts
+    # separate_rows(Sides, sep = ",", convert = TRUE) %>% 
+    data.frame
+  # Add warm-ups to the workout
+  workout <- workout_list %>% 
+    # Select warm-ups
+    filter(Type == "warm-up") %>% 
+    sample_n(warmupREPS) %>% 
+    # Add warm-ups to main workout
+    bind_rows(main) %>% 
+    # Duplicate for sided workouts
+    separate_rows(Sides, sep = ",", convert = TRUE) %>% 
+    data.frame
 }
 
-# Run workout
-## INTERVAL = in seconds
-run_workout <- function(df, INTERVAL){
+# Create random workout list
+workout_list_df <- generate_workout(3, 7)
+
+##
+# Run regular workout
+##
+run_workout <- function(warmup_seconds, workout_seconds, INTERVAL){
+  workout_df <- generate_workout(warmup_seconds, workout_seconds)
+  ## Set countdown function
   countdown <- function(from)
   {
     print(from)
@@ -60,25 +46,28 @@ run_workout <- function(df, INTERVAL){
     }
   }
   #
+  ## Start warm-up countdown
   beep(sound = 2)
   cat("\n","\n","GET READY", "\n","\n","Warm-up!!!", "\n", "in.....", "\n")
   countdown(3)
-  warmup_final <- subset(df, Type == "warm-up")
-  warmup_list <- warmup_final$WORKOUT
+  warmup_final <- filter(workout_df, Type == "warm-up")
+  warmup_list <- warmup_final$Workout
   for (row in warmup_list) {
-    cat("\n", "Next:",paste(row), "in ", "\n")
+    cat("\n", "Next:", paste(row), "in ", "\n")
     countdown(9) #transition countdown
     beep(sound = 2)
-    cat("\n",paste(row), "\n")
+    cat("\n", paste(row), "\n")
     countdown(30) # warm-up defaults to 30 seconds
     beep(sound = 5)
   }
+  ## Warm-up completed, countdown to workout
   cat("\n","\n","\n","Hope you're warm now", "\n")
   beep(sound = 2)
   cat("Workout in...", "\n")
   countdown(3)
-  wo_final <- subset(df, Type == "main")
-  wo_list <- wo_final$WORKOUT
+  ## Start main workout
+  wo_final <- filter(workout_df, Type == "main")
+  wo_list <- wo_final$Workout
   for (row in wo_list) {
     cat("\n", "Next:", paste(row), "in ", "\n")
     countdown(9) #transition countdown
@@ -91,18 +80,19 @@ run_workout <- function(df, INTERVAL){
   cat("WORKOUT COMPLETED!!!", "\n", "\n","go drink some water")
 }
 
-###
-# Generate & run a tabata workout:
-###
-## Subsets 4 random workouts
-generate_tabata_workout <- function(df){
-  work <- subset(df, Type == "main" & !(Sides == "sided"))
-  tabata <- work[sample(nrow(work), 4), ]
-  return(tabata)
-}
+# Run workout with warm up, main workout, and intervals
+run_workout(2, 4, 10)
 
-# Run tabata workout function:
-run_tabata_workout <- function(df){
+
+###
+# Run tabata workout - 4 exercised repeated twice
+###
+run_tabata_workout <- function(rest, set){
+  df <- filter(workout_list, 
+               Type == "main" & !(Sides == "sided")) %>% 
+    sample_n(4) %>% 
+    data.frame
+  cat(paste("Workout preview:")); cat(paste("\n", as.character(unique(df$Workout))))
   countdown <- function(from)
   {
     print(from)
@@ -116,50 +106,33 @@ run_tabata_workout <- function(df){
   #
   beep(sound = 2)
   cat("\n","\n","Tabata time", " in.....", "\n")
-  tabata_list <- df$Workout
-  for (row in tabata_list) {
+  tabata_df <- df$Workout
+  for (row in tabata_df) {
     cat("\n", "\n", "10 second transition", "\n", "\n")
-    cat("Next up:", paste(row))
-    countdown(10)
+    cat("Next up:", paste(row), "\n")
+    countdown(rest)
     beep(sound = 2)
     cat("\n", "\n","GO!", "\n", "\n", paste(row), "\n")
-    countdown(20)
+    countdown(set)
     beep(sound = 5)
   }
   cat("\n", "\n", "Half way there! Round two.", "\n")
-  for (row in tabata_list) {
+  for (row in tabata_df) {
     cat("\n", "\n", "10 second transition", "\n", "\n")
-    cat("Next up:", paste(row))
-    countdown(10)
+    cat("Next up:", paste(row), "\n")
+    countdown(rest)
     beep(sound = 2)
     cat("\n", "\n","GO!", "\n", "\n", paste(row), "\n")
-    countdown(20)
+    countdown(set)
     beep(sound = 5)
   }
   beep(sound = 8) #Complete Mario sound
   cat("WORKOUT COMPLETE!!!", "\n", "\n","go drink some water")
 }
 
+run_tabata_workout(10, 20)
 
 
 
-# Generate and run R workouts ---------------------------------------------
-# Example workout, selecting 5 warm-ups and 10 main workouts
-# woRkout_1 <- generate_workout(workouts, 4, 5)
-woRkout <- generate_workout(workout_list, 4, 5)
-woRkout # view workout
-#
-# Run workout so main workout moves run for 25 seconds each. Select your interval
-# run_workout(woRkout, 25)
-run_workout(woRkout, 40)
-## Workout defaults to 30 sec intervals for warm-ups with 10 second transition and main workout includes 10 second transitions in between specified intervals (INTERVAL)
 
-# Tabata workout will randomly select 4 main moves
-tabata <- generate_tabata_workout(workout_list)
-tabata
 
-# Run tabata workout, 4 moves for 20 seconds with 10 second rests, x2
-run_tabata_workout(tabata)
-
-# Go drink some water. You rocked it.
-# SKH
