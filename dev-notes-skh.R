@@ -12,6 +12,7 @@ usethis::use_mit_license("Sarah Hu")
 usethis::use_package("dplyr")
 usethis::use_package("tidyr")
 usethis::use_package("beepr")
+usethis::use_package("magrittr")
 
 usethis::use_pipe() # allows you to have pipes in functions
 
