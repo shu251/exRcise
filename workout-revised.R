@@ -1,7 +1,17 @@
+
+library(devtools)
+library(tidyverse)
+library(fs)
+library(roxygen2)
+
+devtools::document()
+
+###
+
 head(workout_list)
 library(tidyverse); library(beepr)
 
-workout_list <- read.delim(file = "workout-list.txt")
+workout_list <- read.delim(file = "../exRcise/workout-list.txt")
 
 ###
 # Function to generate workout
