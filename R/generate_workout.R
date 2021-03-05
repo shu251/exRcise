@@ -1,11 +1,13 @@
 #' Generate a random workout
 #'
+#' Returns a data frame with a list of warm-up and workout exercises. To be used in ```run_workout()```.
+#'
 #' @param warmupREPS input number of desired warm-ups, numeric (i.e., 3). Maximum is 15.
 #' @param workoutREPS input number of desiered workouts, numeric (i.e., 4). Maximum is 32.
 #'
 #' @return A data frame that lists warm-ups and workouts (user defined), and splits moves that require left and right sides into a LEFT and RIGHT size.
 #'
-#' Make sure to set equal to a new data frame to save this workout.
+#' Make sure to set equal to a new data frame to save this workout. Then use this new data frame to run the working using the ```run_workout()``` function.
 #'
 #' @export
 #'

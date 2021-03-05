@@ -14,10 +14,10 @@ generate_workout(warmupREPS, workoutREPS)
 \value{
 A data frame that lists warm-ups and workouts (user defined), and splits moves that require left and right sides into a LEFT and RIGHT size.
 
-Make sure to set equal to a new data frame to save this workout.
+Make sure to set equal to a new data frame to save this workout. Then use this new data frame to run the working using the \code{run_workout()} function.
 }
 \description{
-Generate a random workout
+Returns a data frame with a list of warm-up and workout exercises. To be used in \code{run_workout()}.
 }
 \examples{
 myworkout <- generate_workout(4, 8)

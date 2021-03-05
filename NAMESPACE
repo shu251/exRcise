@@ -2,4 +2,8 @@
 
 export("%>%")
 export(generate_workout)
+export(run_tabata_workout)
+export(run_tabata_workout_nosound)
+export(run_workout)
+export(run_workout_nosound)
 importFrom(magrittr,"%>%")

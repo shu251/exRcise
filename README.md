@@ -9,6 +9,19 @@ cd exRcise
 
 Launch and run in R (RStudio is best). Provided ```workout-list.txt``` comes with many different warm-up and main exercises.   
 
+### Installation
+
+Install package from github
+```
+devtools::install_github("shu251/exRcise")
+```
+
+Install dependencies
+```
+library(tidyverse)
+library(beepr)
+```
+
 
 ### How to get swole with R
 
@@ -48,6 +61,24 @@ run_tabata_workout(tabata)
 
 :trophy:  
 
+### Troubleshooting
+
+If you get the error below, the ```beepr``` library was not installed.
+```
+Error in beep(sound = 2) : could not find function "beep"
+```
+You have two options:
+* [Install the beepr R package.](https://cran.r-project.org/package=beepr)
+
+```
+install.packages("beepr")
+library(beepr)
+```
+
+* Run the workout with the alternate 'no sound option'
+```
+run_workout_nosound()
+```
 
 Last updated: _Sarah Hu June 20, 2020_
 
